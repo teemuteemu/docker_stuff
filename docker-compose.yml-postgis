@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  db:
+    image: kartoza/postgis:12.0
+    ports:
+      - 5432:5432
+    volumes:
+      - ./scripts/:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=passu
+      - POSTGRES_DB=hello
+      # Add extensions you need to be enabled by default in the DB. Default are the three specified below
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
